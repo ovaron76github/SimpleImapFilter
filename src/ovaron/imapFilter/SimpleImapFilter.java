@@ -15,7 +15,7 @@ import javax.mail.Store;
  */
 public class SimpleImapFilter {
 
-    private static final String version = "1.02";
+    private static final String version = "1.00";
     private final Properties props = new Properties();
 
     private void loadProperties(String propertiesFile) {
@@ -125,6 +125,7 @@ public class SimpleImapFilter {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
+        System.out.println("------------------------------------------------------------");
         System.out.println(SimpleImapFilter.getTimeStamp() + "SimpleImapFilter v" + version);
         if (args.length == 0) {
             System.out.println(SimpleImapFilter.getTimeStamp() + "Usage: java -jar SimpleImapFilter configFile.");
@@ -136,7 +137,7 @@ public class SimpleImapFilter {
                 e.printStackTrace();
             }
         }
-
+        System.out.println("------------------------------------------------------------");
     }
 
 }

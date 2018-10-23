@@ -193,6 +193,12 @@ public class ImapFilter {
         }
         folder.open(Folder.READ_WRITE);
         if (messages.length > 0) {
+            if (!store.isConnected()) {
+                store = connect();
+            }
+            if (!messages[0].getFolder().isOpen()) {
+                messages[0].getFolder().open(Folder.READ_WRITE);
+            }
             messages[0].getFolder().copyMessages(messages, folder);
             for (Message message : messages) {
                 message.setFlag(Flags.Flag.DELETED, true);
@@ -210,9 +216,18 @@ public class ImapFilter {
      */
     private void deleteMessages(Store store, Message[] messages) throws Exception {
         if (messages.length > 0) {
+            if (!store.isConnected()) {
+                store = connect();
+            }
+            
+            if (!messages[0].getFolder().isOpen()) {
+                messages[0].getFolder().open(Folder.READ_WRITE);
+            }
+            
             for (Message message : messages) {
                 message.setFlag(Flags.Flag.DELETED, true);
             }
+            
             messages[0].getFolder().close(true);
         }
     }
