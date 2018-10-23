@@ -18,7 +18,7 @@ Project is using JavaMail (https://javaee.github.io/javamail/)<br>
 <i>java -jar /usr/local/SimpleImapFilter/SimpleImapFilter.jar /usr/local/SimpleImapFilter/settings.properties</i><br>
 <br>
 <b>How to add SimpleImapFilter to crontab:</b><br>
-0 1 * * * /usr/java/latest/bin/java -jar /usr/local/SimpleImapFilter/SimpleImapFilter.jar /usr/local/SimpleImapFilter/settings.properties >> /var/log/SimpleImapFilter.log 2>&1<br>
+<i>0 1 * * * /usr/java/latest/bin/java -jar /usr/local/SimpleImapFilter/SimpleImapFilter.jar /usr/local/SimpleImapFilter/settings.properties >> /var/log/SimpleImapFilter.log 2>&1</i><br>
 This will run SimpleImapFilter once per day at 1:00am.<br>
 <br>
 <b>Download:</b><br>
