@@ -15,7 +15,7 @@ import javax.mail.Store;
  */
 public class SimpleImapFilter {
 
-    private static final String version = "1.01";
+    private static final String version = "1.02";
     private final Properties props = new Properties();
 
     private void loadProperties(String propertiesFile) {

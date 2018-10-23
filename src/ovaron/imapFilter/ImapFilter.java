@@ -8,7 +8,10 @@ import javax.mail.Flags;
 import javax.mail.Folder;
 import javax.mail.Message;
 import javax.mail.MessagingException;
+import javax.mail.search.FromStringTerm;
+import javax.mail.search.RecipientStringTerm;
 import javax.mail.search.SearchTerm;
+import javax.mail.search.SubjectTerm;
 
 /**
  *
@@ -132,44 +135,16 @@ public class ImapFilter {
      * @return SearchTerm
      */
     private SearchTerm createSearchTerm(String searchWhere, String searchText) {
-        String searchTextLow = searchText.toLowerCase();
         // creates a search criterion
-        SearchTerm searchCondition = new SearchTerm() {
-            @Override
-            public boolean match(Message message) {
-                try {
-                    //Suject search
-                    if (searchWhere.toLowerCase().trim().equals("subject")) {
-                        if (message.getSubject().toLowerCase().contains(searchTextLow)) {
-                            return true;
-                        }
-                    } //From search
-                    else if (searchWhere.toLowerCase().trim().equals("from")) {
-                        Address[] fromAdress = message.getFrom();
-                        String mailFrom = "";
-                        for (Address address : fromAdress) {
-                            mailFrom = address.toString();
-                        }
-                        if (mailFrom.toLowerCase().contains(searchTextLow)) {
-                            return true;
-                        }
-                    } //To search
-                    else if (searchWhere.toLowerCase().trim().equals("to")) {
-                        Address[] toAdress = message.getRecipients(Message.RecipientType.TO);
-                        String mailTo = "";
-                        for (Address address : toAdress) {
-                            mailTo = mailTo + ";" + address.toString();
-                        }
-                        if (mailTo.toLowerCase().contains(searchTextLow)) {
-                            return true;
-                        }
-                    }
-                } catch (MessagingException ex) {
-                    ex.printStackTrace();
-                }
-                return false;
-            }
-        };
+        SearchTerm searchCondition = null;
+
+        if (searchWhere.toLowerCase().trim().equals("subject")) {
+            searchCondition = new SubjectTerm(searchText);
+        } else if (searchWhere.toLowerCase().trim().equals("from")) {
+            searchCondition = new FromStringTerm(searchText);
+        } else if (searchWhere.toLowerCase().trim().equals("to")) {
+            searchCondition = new RecipientStringTerm(Message.RecipientType.TO, searchText);
+        }
 
         return searchCondition;
     }
@@ -185,7 +160,7 @@ public class ImapFilter {
         Folder folderInbox = store.getFolder("INBOX");
         folderInbox.open(Folder.READ_WRITE);
         Message[] foundMessages = folderInbox.search(searchCondition);
-        folderInbox.close();
+        //folderInbox.close();
 
         return foundMessages;
     }
@@ -212,19 +187,19 @@ public class ImapFilter {
      * @throws Exception
      */
     private void moveMessages(Store store, Message[] messages, String destinationFolder) throws Exception {
+        Folder folder = store.getFolder(destinationFolder);
+        if (!folder.exists()) {
+            folder.create(Folder.HOLDS_MESSAGES);
+        }
+        folder.open(Folder.READ_WRITE);
         if (messages.length > 0) {
-            Folder folder = store.getFolder(destinationFolder);
-            if (!folder.exists()) {
-                folder.create(Folder.HOLDS_MESSAGES);
-            }
-            folder.open(Folder.READ_WRITE);
             messages[0].getFolder().copyMessages(messages, folder);
             for (Message message : messages) {
                 message.setFlag(Flags.Flag.DELETED, true);
             }
             messages[0].getFolder().close(true);
-            folder.close();
         }
+        folder.close();
     }
 
     /**
@@ -232,7 +207,7 @@ public class ImapFilter {
      * @param store
      * @param messages
      * @throws Exception
-     */    
+     */
     private void deleteMessages(Store store, Message[] messages) throws Exception {
         if (messages.length > 0) {
             for (Message message : messages) {
@@ -241,7 +216,7 @@ public class ImapFilter {
             messages[0].getFolder().close(true);
         }
     }
-    
+
     /**
      *
      * @param store
@@ -259,7 +234,7 @@ public class ImapFilter {
         return messageCount;
     }
 
-     /**
+    /**
      *
      * @param store
      * @param searchWhere
@@ -274,6 +249,5 @@ public class ImapFilter {
 
         return messageCount;
     }
-    
-    
+
 }
