@@ -16,4 +16,5 @@ Description of config file: <a href="https://github.com/ovaron76github/SimpleIma
 <br>
 Start by using the following command:<br>
 <i>java -jar /usr/local/SimpleImapFilter/SimpleImapFilter.jar /usr/local/SimpleImapFilter/settings.properties</i><br>
-
+<br>
+You can find the latest compiled SimpleImapFilter.jar in dist folder on github.<br>
