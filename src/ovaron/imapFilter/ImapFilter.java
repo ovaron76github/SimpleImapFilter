@@ -160,7 +160,7 @@ public class ImapFilter {
         Folder folderInbox = store.getFolder("INBOX");
         folderInbox.open(Folder.READ_WRITE);
         Message[] foundMessages = folderInbox.search(searchCondition);
-        //folderInbox.close();
+        folderInbox.close();
 
         return foundMessages;
     }
