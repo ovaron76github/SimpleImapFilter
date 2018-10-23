@@ -5,20 +5,20 @@ The search should be done on server-side.<br>
 Project is using JavaMail (https://javaee.github.io/javamail/)<br>
 <br>
 <br>
-Installation and usage:<br>
+<u>Installation and usage:</u><br>
 <ul>
 <li>Copy "SimpleImapFilter.jar" to some directory (for example /usr/local/SimpleImapFilter)</li>
 <li>Create Subfolder "lib" copy javax.mail.jar into this directory</li>
 <li>Create a config/properites file (for example named settings.properties) and copy it to SimpleImapFilter folder</li>
 </ul>
 <br>
-Description of config file: <a href="https://github.com/ovaron76github/SimpleImapFilter/wiki/Description-for-config-file">Description-for-config-file</a><br>
+<u>Description of config file:</u> <a href="https://github.com/ovaron76github/SimpleImapFilter/wiki/Description-for-config-file">Description-for-config-file</a><br>
 <br>
 Start by using the following command:<br>
 <i>java -jar /usr/local/SimpleImapFilter/SimpleImapFilter.jar /usr/local/SimpleImapFilter/settings.properties</i><br>
 <br>
 <br>
-How to add SimpleImapFilter to crontab:<br>:
+<u>How to add SimpleImapFilter to crontab:</u><br>
 0 1 * * * /usr/java/latest/bin/java -jar /usr/local/SimpleImapFilter/SimpleImapFilter.jar /usr/local/SimpleImapFilter/settings.properties >> /var/log/SimpleImapFilter.log 2>&1<br>
 This will run SimpleImapFilter once per day at 1:00am.<br>
 <br>
