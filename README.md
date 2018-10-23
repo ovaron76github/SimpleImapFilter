@@ -17,4 +17,9 @@ Description of config file: <a href="https://github.com/ovaron76github/SimpleIma
 Start by using the following command:<br>
 <i>java -jar /usr/local/SimpleImapFilter/SimpleImapFilter.jar /usr/local/SimpleImapFilter/settings.properties</i><br>
 <br>
+<br>
+How to add SimpleImapFilter to crontab:<br>:
+0 1 * * * /usr/java/latest/bin/java -jar /usr/local/SimpleImapFilter/SimpleImapFilter.jar /usr/local/SimpleImapFilter/settings.properties >> /var/log/SimpleImapFilter.log 2>&1<br>
+This will run SimpleImapFilter once per day at 1:00am.<br>
+<br>
 You can find the latest compiled SimpleImapFilter.jar in dist folder on github.<br>
