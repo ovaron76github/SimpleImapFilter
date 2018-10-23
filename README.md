@@ -12,6 +12,8 @@ Installation and usage:<br>
 <li>Create a config/properites file (for example named settings.properties) and copy it to SimpleImapFilter folder</li>
 </ul>
 <br>
+Description of config file: <a href="https://github.com/ovaron76github/SimpleImapFilter/wiki/Description-for-config-file">Description-for-config-file</a><br>
+<br>
 Start by using the following command:<br>
 <i>java -jar /usr/local/SimpleImapFilter/SimpleImapFilter.jar /usr/local/SimpleImapFilter/settings.properties</i><br>
 
